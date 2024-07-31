@@ -1,0 +1,802 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Encrypt_Maker_Number_Group_Maker</title>
+</head>
+    <script>
+        //Chack part
+        const Remainder_Form_Base10_Chack_Arrays=[
+            //Number Base is : 10
+            // Remainder : 0
+            [
+                [true,true,true,true,true,true,true,true,true,true],
+                [true,false,false,false,false,false,false,false,false,false],
+                [true,false,false,false,false,true,false,false,false,false],
+                [true,false,false,false,false,false,false,false,false,false],
+                [true,false,false,false,false,true,false,false,false,false],
+                [true,false,true,false,true,false,true,false,true,false],
+                [true,false,false,false,false,true,false,false,false,false],
+                [true,false,false,false,false,false,false,false,false,false],
+                [true,false,false,false,false,true,false,false,false,false],
+                [true,false,false,false,false,false,false,false,false,false]
+            ],
+            // Remainder : 1
+            [
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true]
+            ],
+            // Remainder : 2
+            [
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,true,false,false,false],
+                [false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,true,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,true,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,true,false,false,false],
+                [false,false,false,false,true,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,true,false]
+            ],
+            // Remainder : 3
+            [
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false]
+            ],
+            // Remainder : 4
+            [
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,false],
+                [false,false,true,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,true,false],
+                [false,true,false,false,false,false,true,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,true],
+                [false,false,true,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,true,false],
+                [false,false,false,false,false,false,true,false,false,false]
+            ],
+            // Remainder : 5
+            [
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,true,false,true,false,true,false,true],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false]
+            ],
+            // Remainder : 6
+            [
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false],
+                [false,false,false,true,false,false,false,false,true,false],
+                [false,false,true,false,false,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,true,false,false,false],
+                [false,false,false,false,false,false,false,false,true,false],
+                [false,false,true,false,false,false,false,true,false,false],
+                [false,false,false,false,true,false,false,false,false,false]
+            ],
+            // Remainder : 7
+            [
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false]
+            ],
+            // Remainder : 8
+            [
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,true,false],
+                [false,false,false,false,true,false,false,false,false,true],
+                [false,false,false,false,false,false,true,false,false,false],
+                [false,false,true,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,true,false],
+                [false,false,false,false,true,false,false,false,false,false],
+                [false,true,false,false,false,false,true,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false]
+            ],
+            // Remainder : 9
+            [
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false]
+            ]
+        ];
+        const Remainder_Form_Base16_Chack_Arrays=[
+            //Number Base is : 16
+            // Remainder : 0
+            [
+                [true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true],
+                [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [true,false,false,false,true,false,false,false,true,false,false,false,true,false,false,false],
+                [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [true,false,true,false,true,false,true,false,true,false,true,false,true,false,true,false],
+                [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [true,false,false,false,true,false,false,false,true,false,false,false,true,false,false,false],
+                [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [true,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+            ],
+            // Remainder : 1
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true]
+            ],
+            // Remainder : 2
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false]
+            ],
+            // Remainder : 3
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false]
+            ],
+            // Remainder : 4
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false],
+                [false,true,false,false,false,true,false,false,false,true,false,false,false,true,false,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,true,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false],
+                [false,false,false,true,false,false,false,true,false,false,false,true,false,false,false,true],
+                [false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,true,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false]
+            ],
+            // Remainder : 5
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false]
+            ],
+            // Remainder : 6
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
+                [false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,true],
+                [false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false]
+            ],
+            // Remainder : 7
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false]
+            ],
+            // Remainder : 8
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false],
+                [false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [false,false,true,false,false,false,true,false,false,false,true,false,false,false,true,false],
+                [false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false],
+                [false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [false,true,false,true,false,true,false,true,false,true,false,true,false,true,false,true],
+                [false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false],
+                [false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [false,false,true,false,false,false,true,false,false,false,true,false,false,false,true,false],
+                [false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,true,false,false,false],
+                [false,false,false,false,false,false,false,false,true,false,false,false,false,false,false,false]
+            ],
+            // Remainder : 9
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false]
+            ],
+            // Remainder : 10
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false]
+            ],
+            // Remainder : 11
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false]
+            ],
+            // Remainder : 12
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,true,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,true,false,false,false,true,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,true,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,true,false,false,false,true,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,true,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false]
+            ],
+            // Remainder : 13
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false]
+            ],
+            // Remainder : 14
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,true,false,false],
+                [false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,true,false],
+                [false,false,false,true,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,true,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false]
+            ],
+            // Remainder : 15
+            [
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,true,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,true,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,true,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,true,false,false,false,false],
+                [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
+                [false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false]
+            ]
+        ];
+    </script>
+    <script>
+        //Get part
+        const Remainder_Form_Base10_Get_Arrays=null;
+        const Remainder_Form_Base16_Get_Arrays=[
+            //Number Base is : 16
+            // Remainder : 0
+            [,0,,0,,0,,0,,0,,0,,0,,0],
+            // Remainder : 1
+            [,1,,11,,13,,7,,9,,3,,5,,15],
+            // Remainder : 2
+            [,2,,6,,10,,14,,2,,6,,10,,14],
+            // Remainder : 3
+            [,3,,1,,7,,5,,11,,9,,15,,13],
+            // Remainder : 4
+            [,4,,12,,4,,12,,4,,12,,4,,12],
+            // Remainder : 5
+            [,5,,7,,1,,3,,13,,15,,9,,11],
+            // Remainder : 6
+            [,6,,2,,14,,10,,6,,2,,14,,10],
+            // Remainder : 7
+            [,7,,13,,11,,1,,15,,5,,3,,9],
+            // Remainder : 8
+            [,8,,8,,8,,8,,8,,8,,8,,8],
+            // Remainder : 9
+            [,9,,3,,5,,15,,1,,11,,13,,7],
+            // Remainder : 10
+            [,10,,14,,2,,6,,10,,14,,2,,6],
+            // Remainder : 11
+            [,11,,9,,15,,13,,3,,1,,7,,5],
+            // Remainder : 12
+            [,12,,4,,12,,4,,12,,4,,12,,4],
+            // Remainder : 13
+            [,13,,15,,9,,11,,5,,7,,1,,3],
+            // Remainder : 14
+            [,14,,10,,6,,2,,14,,10,,6,,2],
+            // Remainder : 15
+            [,15,,5,,3,,9,,7,,13,,11,,1]
+        ];
+    </script>
+    <script>
+        const Multip_List_Form_Base10_Arrays=[
+            //Number Base is : 10
+            [0,0,0,0,0,0,0,0,0,0],
+            [0,1,2,3,4,5,6,7,8,9],
+            [0,2,4,6,8,10,12,14,16,18],
+            [0,3,6,9,12,15,18,21,24,27],
+            [0,4,8,12,16,20,24,28,32,36],
+            [0,5,10,15,20,25,30,35,40,45],
+            [0,6,12,18,24,30,36,42,48,54],
+            [0,7,14,21,28,35,42,49,56,63],
+            [0,8,16,24,32,40,48,56,64,72],
+            [0,9,18,27,36,45,54,63,72,81]
+        ];
+        const Multip_List_Form_Base16_Arrays=[
+            //Number Base is : 16
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+            [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30],
+            [0,3,6,9,12,15,18,21,24,27,30,33,36,39,42,45],
+            [0,4,8,12,16,20,24,28,32,36,40,44,48,52,56,60],
+            [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75],
+            [0,6,12,18,24,30,36,42,48,54,60,66,72,78,84,90],
+            [0,7,14,21,28,35,42,49,56,63,70,77,84,91,98,105],
+            [0,8,16,24,32,40,48,56,64,72,80,88,96,104,112,120],
+            [0,9,18,27,36,45,54,63,72,81,90,99,108,117,126,135],
+            [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150],
+            [0,11,22,33,44,55,66,77,88,99,110,121,132,143,154,165],
+            [0,12,24,36,48,60,72,84,96,108,120,132,144,156,168,180],
+            [0,13,26,39,52,65,78,91,104,117,130,143,156,169,182,195],
+            [0,14,28,42,56,70,84,98,112,126,140,154,168,182,196,210],
+            [0,15,30,45,60,75,90,105,120,135,150,165,180,195,210,225]
+        ];
+    </script>
+    <script>
+        let Number_Base=16;
+        function fun01(array_type=0){
+            let temp0;
+            let printf_texts;
+            let number0=0;
+            printf_texts='Arrays=[<br>&ensp;&ensp;&ensp;&ensp;//Number Base is : '+Number_Base;
+            fun_add_line();
+            if(array_type==2){
+                temp0=fun_number_group_maker_multip_list();
+                printf_texts=printf_texts+fun_number_group_be_text_multip_list(temp0);
+            }
+            else for(;;){
+                if(number0>=Number_Base)break;
+                if(array_type==0){
+                    temp0=fun_number_group_maker_chack(number0);
+                    temp0=fun_number_group_be_text(temp0,number0);
+                }
+                if(array_type==1){
+                    temp0=fun_number_group_maker_get(number0);
+                    temp0=fun_number_group_be_text_less(temp0,number0);
+                }
+                printf_texts=printf_texts+temp0;
+                number0++;
+            }
+            temp0=printf_texts.length-1;
+            printf_texts=printf_texts.slice(0,temp0);
+            printf_texts=printf_texts+'<br>];';
+            fun_number_group_printf(printf_texts);
+            fun_add_line();
+            return 0;
+        }
+        function fun_number_group_maker_chack(number_f=0){
+            let N_G=[],N_T=[true];
+            let number0=0,number1=0;
+            let temp0=0;
+            for(;;){
+                if(number1>=Number_Base){
+                    N_G[number0]=N_T;
+                    number0++;
+                    if(number0>=Number_Base)break;
+                    number1=0;
+                    N_T=[true];
+                }
+                temp0=number0*number1;
+                temp0=temp0%Number_Base;
+                if(temp0==number_f)N_T[number1]=true;
+                else N_T[number1]=false;
+                number1++;
+            }
+            return N_G;
+        }
+        function fun_number_group_maker_get_old(number_f=0){
+            let N_G=[],N_T=[];
+            let number0=1,number1=0;
+            let number2=0;
+            let A_N=[];
+            let temp0=0;
+            function add_array_long(number_in,if_null=false){
+                let number_temp=number_in;
+                for(;;){
+                    if(number_temp>=Number_Base)break;
+                    N_T[number_temp]='';
+                    number_temp++;
+                }
+                if(if_null)N_T[number_temp]='';
+                else N_T[number_temp]=number_in;
+            }
+            add_array_long(0,true);
+            for(;;){
+                if(N_T[temp0]===undefined)break;
+                A_N[temp0]=N_T[temp0];
+                temp0++;
+            }
+            N_G[0]=A_N;
+            for(;;){
+                if(number1>=Number_Base){
+                    add_array_long(number2);
+                    N_G[number0]=N_T;
+                    number0++;
+                    if(number0>=Number_Base)break;
+                    temp0=number0%2;
+                    if(temp0==0){
+                        N_G[number0]=A_N;
+                        number0++;
+                    }
+                    number1=0;
+                    number2=0;
+                    N_T=[''];
+                }
+                temp0=number0*number1;
+                temp0=temp0%Number_Base;
+                if(temp0==number_f){
+                    N_T[number2]=number1;
+                    number2++;
+                }
+                number1++;
+            }
+            return N_G;
+        }
+        function fun_number_group_maker_get(number_f=0){
+            let N_G=[],N_T='';
+            let number0=1,number1=0;
+            let A_N='';
+            let temp0=0;
+            N_G[0]=A_N;
+            for(;;){
+                if(number1>=Number_Base){
+                    N_G[number0]=N_T;
+                    number0++;
+                    if(number0>=Number_Base)break;
+                    temp0=number0%2;
+                    if(temp0==0){
+                        N_G[number0]=A_N;
+                        number0++;
+                    }
+                    number1=0;
+                    N_T='';
+                }
+                temp0=number0*number1;
+                temp0=temp0%Number_Base;
+                if(temp0==number_f){
+                    N_T=number1;
+                    number1=Number_Base;
+                }
+                number1++;
+            }
+            return N_G;
+        }
+        function fun_number_group_maker_multip_list(){
+            let A_R=[],A_T=[0];
+            let number0=0,number1=0;
+            for(;;){
+                if(number1>=Number_Base){
+                    A_R[number0]=A_T;
+                    number0++;
+                    if(number0>=Number_Base)break;
+                    number1=0;
+                    A_T=[0];
+                }
+                A_T[number1]=number0*number1;
+                number1++;
+            }
+            console.log(A_R);
+            return A_R;
+        }
+        function fun_number_group_be_text(array_p,of_number=0){
+            let return_T='';
+            let number0=-1,number1=Number_Base+1;
+            return_T=return_T+'<br>&ensp;&ensp;&ensp;&ensp;// Remainder : '+of_number+'<br>&ensp;&ensp;&ensp;&ensp;[<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;[';
+            for(;;){
+                if(array_p[0][number1]==undefined){
+                    if(number0>=0)return_T=return_T+']';
+                    number0++;
+                    if(number0>=Number_Base)break;
+                    else if(number0>=1)return_T=return_T+',<br>&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;[';
+                    number1=0;
+                }
+                else{
+                    return_T=return_T+',';
+                }
+                return_T=return_T+array_p[number0][number1];
+                number1++;
+            }
+            return_T=return_T+'<br>&ensp;&ensp;&ensp;&ensp;],';
+            return return_T;
+        }
+        function fun_number_group_be_text_less(array_p,of_number=0){
+            let return_T='';
+            let number0=0;
+            return_T=return_T+'<br>&ensp;&ensp;&ensp;&ensp;// Remainder : '+of_number+'<br>&ensp;&ensp;&ensp;&ensp;[';
+            for(;;){
+                if(array_p[number0]===undefined)break;
+                return_T=return_T+array_p[number0];
+                number0++;
+                if(array_p[number0]!==undefined)return_T=return_T+',';
+            }
+            return_T=return_T+'],';
+            return return_T;
+        }
+        function fun_number_group_be_text_multip_list(array_p){
+            let return_T='';
+            let number0=0,number1=0;
+            return_T =return_T+'<br>&ensp;&ensp;&ensp;&ensp;['
+            for(;;){
+                if(number1>=Number_Base){
+                    number0++;
+                    if(number0>=Number_Base)break;
+                    else return_T=return_T+'],<br>&ensp;&ensp;&ensp;&ensp;[';
+                    number1=0;
+                }
+                return_T=return_T+array_p[number0][number1];
+                number1++;
+                if(number1<Number_Base)return_T=return_T+',';
+            }
+            return_T=return_T+'],';
+            return return_T;
+        }
+        function fun_number_group_printf(tests){
+            let T_E,H_E;
+            H_E=document.getElementById('output_box');
+            H_E.innerHTML='';
+            T_E=document.createElement('p');
+            T_E.innerHTML=tests;
+            H_E.appendChild(T_E);
+            return 0;
+        }
+        function fun_add_line(){
+            let T_E,H_E;
+            H_E=document.getElementById('output_box');
+            A_E=document.createElement('div');
+            A_E.className='lines';
+            H_E.appendChild(A_E);
+        }
+        function fun_copy_arrays(){
+            let T_E=document.getElementById('output_box').getElementsByTagName('p')[0];
+            let range = document.createRange();
+            let selection = window.getSelection();
+            if(T_E===null||T_E===undefined)return -1;
+            range.selectNodeContents(T_E);
+            selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand('copy');
+        }
+    </script>
+    <style>
+        .titles{
+            width: 100%;
+            text-align: center;
+            font-size: 40px;
+            color: hsla(224,98%,66%,1.00);
+        }
+        .version_message{
+            width: 90%;
+            text-align: end;
+            font-size: 20px;
+            color:hsla(0,0%,68%,1.00);
+        }
+        .B_l{
+            cursor: pointer;
+            text-align: center;
+            line-height: 50px;
+            height: 50px;
+            width: 100px;
+            margin: 20px 20px 0px 80%;
+            background: hsla(224,91%,73%,1.00);
+        }
+        .B_l:hover{
+            background: hsla(224,91%,50%,1.00);
+        }
+        .B_l:active{
+            background: hsla(224,91%,90%,1.00);
+        }
+        .lines{
+            width: 100%;
+            height: 20px;
+            margin: 50px 0px 10px 0px;
+            background: linear-gradient(75deg,hsla(244,100%,64%,1.00),hsla(259,100%,71%,1.00),hsla(244,100%,64%,1.00));
+        }
+        .B_inline{
+            margin: 20px;
+            display: inline-block;
+        }
+    </style>
+<body>
+    <div>
+        <div class="titles">乘法余数字典生成</div>
+        <div class="version_message">V0.3 D202406072110</div>
+        
+        <div class="B_l B_inline" onClick="fun01(0)">生成检查字典</div>
+        <div class="B_l B_inline" onClick="fun01(1)">生成查询字典</div>
+        <div class="B_l B_inline" onClick="fun01(2)">生成乘法字典</div>
+        <div class="B_l" onClick="fun_copy_arrays()">复制数组</div>
+        
+        <div class="lines"></div>
+        
+        <div id="output_box"></div>
+    </div>
+</body>
+</html>
