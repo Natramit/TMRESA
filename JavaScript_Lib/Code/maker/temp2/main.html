@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Encrypt_Maker</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/JavaScript" src="js/version.js"></script>
+    <script type="text/JavaScript" src="js/format.js"></script>
+    <script type="text/javascript" src="js/data0.js"></script>
+    <script type="text/javascript" src="js/Maker0.js"></script>
+    <script type="text/JavaScript" src="js/test.js"></script>
+    <script type="text/JavaScript" src="js/main.js"></script>
+</head>
+<body>
+    <div>
+        <div class="titles">密钥生成</div>
+        <div>私钥随机数
+            <input class="in_a" id="in01">
+        </div>
+        <div>加密长度
+            <input class="in_a" id="in02" type="number">
+        </div>
+        <div>私钥长度
+            <input class="in_a" id="in03" type="number">
+        </div>
+        <div>附加随机数
+            <input class="in_a" id="in04">
+        </div>
+        <div>附加随机数长度
+            <input class="in_a" id="in05" type="number">
+        </div>
+        <div>混杂值长度
+            <input class="in_a" id="in06">
+        </div>
+        <div class="B_l" onClick="stat01()">生成密钥</div>
+        
+        <div class="lines"></div>
+        
+        <div class="titles">密钥</div>
+        <div><br>公钥
+            <div contenteditable="true" class="show_box" id="ou01"></div>
+        </div>
+        <div><br>私钥
+            <div contenteditable="true" class="show_box" id="ou02"></div>
+        </div>
+        <div><br>提示
+            <div contenteditable="true" class="show_box" id="ou03"></div>
+        </div>
+    </div>
+</body>
+</html>
